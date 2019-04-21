@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Open Weather API Integration</title>
+
+    <!-- jQuery CDN integration in this file -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.0.min.js"
+      integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <input id="cityName" placeholder="city" />
+    <input id="zipCode" placeholder="zip" />
+    <!-- Onclick of this button you can get weather data -->
+    <button id="getWeatherInfo">Get weather information</button>
+    <div id="showError"></div>
+
+    <!-- Script for getting weather data -->
+    <script type="text/javascript">
+      // Execute script when document is fully loaded
+      $(document).ready(function() {
+        // Common function to show anything in console.
+        function showDataInConsole(Rawdata) {
+          console.log(Rawdata);
+        }
+
+        // Common function to show error in DOM.
+        function showErrorInDOM(RawError) {
+          $("#showError").html("<p>Note: " + RawError + "</p>");
+        }
+
+        // This event will be triggered when button with id getWeatherInfo will be clicked.
+        $("#getWeatherInfo").click(function() {
+          let cityName = $("#cityName").val();
+          let zipCode = $("#zipCode").val();
+          // This is example input. You can change it as per your need.
+          const inputs = {
+            q: "" != cityName ? cityName : "",
+            zip: "" != zipCode ? zipCode : ""
+          };
+          // Input API key from https://home.openweathermap.org/api_keys here.
+          const key = "";
+
+          if ("" !== key && !key) {
+            const keyError =
+              "API key should be non-empty. Get your API key from https://home.openweathermap.org/api_keys";
+            showDataInConsole(keyError);
+            showErrorInDOM(keyError);
+            return;
+          }
+
+          if ("" == inputs["q"] && !inputs["q"]) {
+            const cityError = "City name should not be empty!";
+            showDataInConsole(cityError);
+            showErrorInDOM(cityError);
+            return;
+          }
+
+          // AJAX call to Open weather API.
+          // we will pass data in AJAX request such as
+          // q stands to fetch data according to City Name given,
+          // zip stands to fetch weather data of zip code given,
+          // api is there to get authorized by OpenWeatherMap and
+          // units parameter can be changed as per your need. You can read more here at https://openweathermap.org/current#data
+
+          $.ajax({
+            url: "http://api.openweathermap.org/data/2.5/weather",
+            dataType: "json",
+            type: "GET",
+            data: {
+              q: inputs["q"],
+              zip: inputs["zip"],
+              appid: key,
+              units: "metric"
+            },
+
+            // If API request made successfully and we get the data execute steps as given below.
+            success: function(data) {
+              $.each(data.weather, function(index, val) {
+                // Log the result in console.
+                showDataInConsole(
+                  "./weather " +
+                    data.name +
+                    ", " +
+                    inputs["zip"] +
+                    "\n Temprature: " +
+                    data.main.temp +
+                    String.fromCharCode(176) +
+                    "c" +
+                    " | Date and Time in " +
+                    data.name +
+                    " is " +
+                    new Date(data.dt * 1000)
+                      .toISOString()
+                      .slice(0, 19)
+                      .replace("T", " ")
+                );
+              });
+              $("#showError").html("");
+            }
+          });
+        });
+        // Triggers button with id getWeatherInfo on document load so you can get data instantly.
+        $("#getWeatherInfo").trigger("click");
+      });
+    </script>
+  </body>
+</html>
