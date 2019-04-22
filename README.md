@@ -29,7 +29,7 @@ After cloning, just run the file in browser and open the inspector tool. You can
 
 - First of all you have to create an account on [OpenWeatherMap](https://home.openweathermap.org/users/sign_up), because you will need an API key to make AJAX call.
 - You can take your API key from [here](https://home.openweathermap.org/api_keys) after logging in.
-- Paste that copied API key #44
+- Paste that copied API key [#44](https://github.com/malavvasita/wethCast/blob/c70aaa7540ad752efa45c20af72f3d01291a6c02/index.html#L44)
 - You are good to go now and run the weathCast.
 
 `Note: Be careful while putting API key.`
@@ -37,13 +37,13 @@ After cloning, just run the file in browser and open the inspector tool. You can
 # What else you can do?
 
 Do you want to modify this and make things work according to your need? You can obviously do that by doing minor changes.
-On line number #39 I have defined constants that I can have information of.
+On line number [#39](https://github.com/malavvasita/wethCast/blob/c70aaa7540ad752efa45c20af72f3d01291a6c02/index.html#L39) I have defined constants that I can have information of.
 
 > There are lot more options you can try with and input as arguments. Look for [Documentation](https://openweathermap.org/current#one) and add argunents as per your need.
 
 # The block you need to understand for output:
 
-After success AJAX call there is function `showDataInConsole` I have used. You can find function defination on line number #25,
+After success AJAX call there is function `showDataInConsole` I have used. You can find function defination on line number [#25](https://github.com/malavvasita/wethCast/blob/c70aaa7540ad752efa45c20af72f3d01291a6c02/index.html#L25),
 
 ```
 showDataInConsole(
